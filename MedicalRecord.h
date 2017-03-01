@@ -1,21 +1,30 @@
 #pragma once
 #include <string>
 #include <stdexcept>
-
+#include <fstream>
+#include <iostream>
 #include "Baby.h"
 
+
 using namespace std;
+
+struct Node;
+Baby bab;
+Node * n;
+
 
 class MedicalRecord {
 public:
 	// default constructor
-	MedicalRecord() {
-		// TO BE COMPLETED
+	MedicalRecord() 
+	{
+		Data = new Baby[total];
 	}
 
 	// destructor
-	~MedicalRecord() {
-		// TO BE COMPLETED
+	~MedicalRecord() 
+	{
+		delete[] Data;
 	}
 
 	// Load information from a text file with the given filename.
@@ -38,32 +47,76 @@ public:
 	}
 
 	// return the most frequently appearing name in the text file
-	string mostPopularName() {
-		return "COMPLETE ME"; // TO BE COMPLETED
+	string mostPopularName()
+	{
+		int count = 0;
+		int prev = 0;
+		string totalName;
+
+		for (int i = 0; i < numB; i++)
+		{
+			for (int j = 0; j < numB; j++)
+			{
+				if (Data[i].getName() == Data[j].getName())
+					count++;
+			}
+			if (count > prev)
+			{
+				totalName = Data[i].getName();
+				prev = count;
+				count = 0;
+			}	
+		}
+		
+		return totalName;
+		
 	}
 
 	// return the number of baby records loaded from the text file
-	int numberOfBirths() {
-		return -1; // TO BE COMPLETED
+	int numberOfBirths() 
+	{
+		return numB;
 	}
 
 	// return the number of babies who had birth weight < 2500 grams
-	int numberOfBabiesWithLowBirthWeight() {
-		return -1; // TO BE COMPLETED
+	int numberOfBabiesWithLowBirthWeight() 
+	{
+		int low_Weight = 0;
+		int low = 2500;
+		for (int i = 0; i < numB; i++)
+		{
+			if (Data[i].getWeight() < low)
+			{
+				low_Weight++;
+			}
+		}
+		return low_Weight;
 	}
 
 	// return the number of babies who have the name contained in string s
-	int numberOfBabiesWithName(string s) {
-		return -1; // TO BE COMPLETED
+	int numberOfBabiesWithName(string s) 
+	{
+		int sameName = 0;
+		
+		for (int i = 0; i < numB; i++)
+		{
+			if (Data[i].getName() == s)
+				sameName++;
+		}
+		return sameName;
 	}
 
 private:
+	Baby * Data;
+	int numB = 0;
+	int total;
 	// update the data structure with information contained in Baby object
-	void addEntry(Baby b) {
-		// TO BE COMPLETED
+	void addEntry(Baby b)
+	{
+		Data[numB] = b;
+		numB++;
 	}
 
-	// Add private member variables for your data structure along with any 
-	// other variables required to implement the public member functions
-
+	
+		
 };

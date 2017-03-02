@@ -18,13 +18,13 @@ public:
 	// default constructor
 	MedicalRecord() 
 	{
-		Data = new Baby[total];
+		sData = new Baby[total];
 	}
 
 	// destructor
 	~MedicalRecord() 
 	{
-		delete[] Data;
+		delete[] sData;
 	}
 
 	// Load information from a text file with the given filename.
@@ -57,12 +57,12 @@ public:
 		{
 			for (int j = 0; j < numB; j++)
 			{
-				if (Data[i].getName() == Data[j].getName())
+				if (sData[i].getName() == sData[j].getName())
 					count++;
 			}
 			if (count > prev)
 			{
-				totalName = Data[i].getName();
+				totalName = sData[i].getName();
 				prev = count;
 				count = 0;
 			}	
@@ -85,7 +85,7 @@ public:
 		int low = 2500;
 		for (int i = 0; i < numB; i++)
 		{
-			if (Data[i].getWeight() < low)
+			if (sData[i].getWeight() < low)
 			{
 				low_Weight++;
 			}
@@ -100,20 +100,20 @@ public:
 		
 		for (int i = 0; i < numB; i++)
 		{
-			if (Data[i].getName() == s)
+			if (sData[i].getName() == s)
 				sameName++;
 		}
 		return sameName;
 	}
 
 private:
-	Baby * Data;
+	Baby * sData;
 	int numB = 0;
 	int total;
 	// update the data structure with information contained in Baby object
 	void addEntry(Baby b)
 	{
-		Data[numB] = b;
+		sData[numB] = b;
 		numB++;
 	}
 
